@@ -45,7 +45,7 @@ def calculate_diversity(analogue_thresh: float, evaluator: Evaluator, df: pd.Dat
         target = row["target"]
         analog = row["smiles"]
         # score = row["score"]
-        # if score < args.score_threshold:
+        # if score < analogue_thresh:
         #     continue
 
         sim = tanimoto_sim(target, analog)
@@ -131,7 +131,8 @@ def main():
     evaluator = Evaluator("diversity")
 
     for thresh in range(50, 100, 5):
-        print(f"======== Analogue Threshold {thresh * 0.1} =========")
+        thresh *= 0.01
+        print(f"======== Analogue Threshold {thresh} =========")
         calculate_diversity(thresh, evaluator, df, args.total)
 
 
