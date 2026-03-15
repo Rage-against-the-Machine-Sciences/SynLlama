@@ -12,22 +12,23 @@
 # total (inference + reconstruct pathway + calculate metrics) combinations: 6 x 2 = 12
 
 MODELS=(
-    "SynLlama-1B-2M-91rxns:91rxns"
+    # "SynLlama-1B-2M-91rxns:91rxns"
     "SynLlama-1B-2M-115rxns:115rxns"
 )
 
 TEST_SETS=(
     "1k_chembl.smi:1k_chembl"
     "1k_enamine_synformer.smi:1k_enamine_synformer"
+    "test_zinc250k.smi:test_zinc250k"
     "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
     "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
-    "1k_train_115rxns.smi:1k_train_115rxns"
-    "1k_train_91rxns.smi:1k_train_91rxns"
+    # "1k_train_115rxns.smi:1k_train_115rxns"
+    # "1k_train_91rxns.smi:1k_train_91rxns"
 )
 
 SMILES_DIR="../synllama-data/inference/smiles/syn-planning"
 MODEL_DIR="../synllama-data/inference/model"
-RESULTS_DIR="../reproduce_benchmarks/synllama/inference_results"
+RESULTS_DIR="../reproduce_benchmarks/synllama/inference_results/frozen_only/"
 RECON_BASE="../synllama-data/inference/reconstruction"
 
 # ########################################## MAKE DIRS
@@ -67,7 +68,7 @@ for MODEL_ENTRY in "${MODELS[@]}"; do
             --model_path "${MODEL_DIR}/${MODEL_NAME}" \
             --smiles_path "${SMILES_DIR}/${TS_FILE}" \
             --save_path "${RUN_DIR}/${RUN_NAME}.pkl" \
-            --sample_mode greedy \
+            --sample_mode frozen_only \
             > "${LOGS}/parallel_inference.log" 2> "${LOGS}/parallel_inference_err.log"
 
         python -m steps.step_31_enamine_reconstruct \
