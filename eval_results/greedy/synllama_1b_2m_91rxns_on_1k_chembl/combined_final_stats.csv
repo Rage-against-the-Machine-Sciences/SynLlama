@@ -1,0 +1,2 @@
+file_name,total_failure_rate %,total_enamine_reconstruct_rate %,total_non_enamine_reconstruct_rate %,total_all_reconstruction_rate %,morgan_sim,scf_sim,pharm2d_sim,avg_rxn_steps,morgan_sim_no_recon,scf_sim_no_recon,pharm2d_sim_no_recon,avg_rxn_steps_no_recon
+synllama_1b_2m_91rxns_on_1k_chembl,0.5,12.2,N/A (stage 2 skipped),12.2,0.6202938426562337,0.6383540073662827,0.5738337160185776,1.3668341708542713,0.5672306683195333,0.5878147048447323,0.5145297436584311,1.3871706758304696

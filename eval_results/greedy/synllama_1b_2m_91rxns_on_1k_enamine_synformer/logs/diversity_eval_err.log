@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/syn_env2/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/workspace/syn_env2/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/workspace/SynLlama/evals/diversity_eval.py", line 10, in <module>
+    from tdc import Evaluator
+ModuleNotFoundError: No module named 'tdc'

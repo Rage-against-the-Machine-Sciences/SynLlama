@@ -1,0 +1,2 @@
+file_name,max_similarity,total_failure_rate %,total_reconstruction_rate %,scf_sim_including_reconstruction,pharm2d_sim_including_reconstruction,avg_rxn_steps,morgan_no_reconstruction,scf_sim_no_reconstruction,pharm2d_sim_no_reconstruction
+synllama_1b_2m_115rxns_on_1k_chembl,0.5997345016238413,22.6,9.0,0.6227220206129819,0.5853281494918997,2.242894056847545,0.5470679886796099,0.5730801812199532,0.5307660638987285

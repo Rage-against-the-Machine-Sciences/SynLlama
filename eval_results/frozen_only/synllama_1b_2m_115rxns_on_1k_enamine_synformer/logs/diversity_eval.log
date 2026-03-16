@@ -1,0 +1,56 @@
+score          0.551393
+num_steps      1.388000
+scf_sim        0.569041
+pharm2d_sim    0.546550
+rdkit_sim      0.571394
+dtype: float64
+======== Analogue Threshold 0.5 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/632 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.457
+======== Analogue Threshold 0.55 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/596 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.430
+======== Analogue Threshold 0.6 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/567 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.409
+======== Analogue Threshold 0.65 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/517 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.373
+======== Analogue Threshold 0.7000000000000001 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/464 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.334
+======== Analogue Threshold 0.75 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/411 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.295
+======== Analogue Threshold 0.8 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/363 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.260
+======== Analogue Threshold 0.85 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/331 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.237
+======== Analogue Threshold 0.9 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/321 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.230
+======== Analogue Threshold 0.9500000000000001 =========
+Reconstruction rate: 314/1000 = 0.314
+Total 0/315 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.226

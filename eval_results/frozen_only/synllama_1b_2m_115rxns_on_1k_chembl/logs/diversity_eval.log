@@ -1,0 +1,56 @@
+score          0.464195
+num_steps      1.736000
+scf_sim        0.481987
+pharm2d_sim    0.453044
+rdkit_sim      0.496253
+dtype: float64
+======== Analogue Threshold 0.5 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/527 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.384
+======== Analogue Threshold 0.55 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/434 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.317
+======== Analogue Threshold 0.6 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/353 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.257
+======== Analogue Threshold 0.65 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/288 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.209
+======== Analogue Threshold 0.7000000000000001 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/225 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.163
+======== Analogue Threshold 0.75 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/189 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.137
+======== Analogue Threshold 0.8 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/143 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.104
+======== Analogue Threshold 0.85 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/115 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.084
+======== Analogue Threshold 0.9 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/94 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.068
+======== Analogue Threshold 0.9500000000000001 =========
+Reconstruction rate: 90/1000 = 0.090
+Total 0/91 query molecules have > 1 generated analogs
+Mean product diversity: 0.000
+Mean BB diversity: 0.066
