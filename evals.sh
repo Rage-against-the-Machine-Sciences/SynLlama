@@ -1,10 +1,10 @@
 # Test sets:
-### 1K ChEMBL: ./synllama-data/inference/smiles/syn-planning/1k_chembl.smi
-### Enamine Testset from SynFormer ./synllama-data/inference/smiles/syn-planning/1k_enamine_synformer.smi
-### Unseen Test set from 115 RXNs ./synllama-data/inference/smiles/syn-planning/1k_test_unseen_bbs_115rxns.smi
-### Unseen Test set from 91 RXNs ./synllama-data/inference/smiles/syn-planning/1k_test_unseen_bbs_91rxns.smi
-### Train-distribution subset from 115 RXNs ./synllama-data/inference/smiles/syn-planning/1k_train_115rxns.smi
-### Train-distribution subset from 91 RXNs ./synllama-data/inference/smiles/syn-planning/1k_train_91rxns.smi
+### 1K ChEMBL: ../reproduce_benchmarks/synllama/test_sets/1k_chembl.smi
+### Enamine Testset from SynFormer ../reproduce_benchmarks/synllama/test_sets/1k_enamine_synformer.smi
+### Unseen Test set from 115 RXNs ../reproduce_benchmarks/synllama/test_sets/1k_test_unseen_bbs_115rxns.smi
+### Unseen Test set from 91 RXNs ../reproduce_benchmarks/synllama/test_sets/1k_test_unseen_bbs_91rxns.smi
+### Train-distribution subset from 115 RXNs ../reproduce_benchmarks/synllama/test_sets/1k_train_115rxns.smi
+### Train-distribution subset from 91 RXNs ../reproduce_benchmarks/synllama/test_sets/1k_train_91rxns.smi
 
 # Models:
 # SynLlama-1B-2M-91rxns: The trained model for SynLlama-1B-2M using RXN Set 1.
@@ -12,7 +12,7 @@
 # total (inference + reconstruct pathway + calculate metrics) combinations: 6 x 2 = 12
 
 MODELS=(
-    # "SynLlama-1B-2M-91rxns:91rxns"
+    "SynLlama-1B-2M-91rxns:91rxns"
     "SynLlama-1B-2M-115rxns:115rxns"
 )
 
@@ -22,11 +22,11 @@ TEST_SETS=(
     "test_zinc250k.smi:test_zinc250k"
     "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
     "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
-    # "1k_train_115rxns.smi:1k_train_115rxns"
-    # "1k_train_91rxns.smi:1k_train_91rxns"
+    "1k_train_115rxns.smi:1k_train_115rxns"
+    "1k_train_91rxns.smi:1k_train_91rxns"
 )
 
-SMILES_DIR="../synllama-data/inference/smiles/syn-planning"
+SMILES_DIR="../reproduce_benchmarks/synllama/test_sets/"
 MODEL_DIR="../synllama-data/inference/model"
 RESULTS_DIR="../reproduce_benchmarks/synllama/inference_results/frozen_only/"
 RECON_BASE="../synllama-data/inference/reconstruction"
