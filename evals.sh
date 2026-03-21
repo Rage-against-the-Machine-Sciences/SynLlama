@@ -28,8 +28,8 @@ TEST_SETS=(
     "1k_enamine_synformer.smi:1k_enamine_synformer"
     "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
     "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
-    "1k_train_115rxns.smi:1k_train_115rxns"
-    "1k_train_91rxns.smi:1k_train_91rxns"
+    # "1k_train_115rxns.smi:1k_train_115rxns"
+    # "1k_train_91rxns.smi:1k_train_91rxns"
 )
 
 SMILES_DIR="${DATA_DIR}/inference/smiles/syn-planning"
