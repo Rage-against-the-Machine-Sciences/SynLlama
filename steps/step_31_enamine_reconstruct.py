@@ -353,7 +353,7 @@ def run_enamine_reconstruct(llama_output_path, embedding_path, reaction_smarts_d
     tasks = [(smiles, llama_answer, reaction_smarts_dict_path, embedding_path, k, n_stacks) for smiles, llama_answer in list(llama_outputs.items())]
     
     # Use multiprocessing
-    num_cores = max(1, mp.cpu_count() - 2)
+    num_cores = min(max(1, mp.cpu_count() - 2), 16)
     with mp.Pool(num_cores) as pool:
         # Create a tqdm progress bar
         with tqdm(total=len(tasks)) as pbar:
