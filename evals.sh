@@ -40,6 +40,9 @@ RECON_BASE="${DATA_DIR}/inference/reconstruction"
 # cd once so that python -m module paths resolve correctly
 cd "${SCRIPT_DIR}"
 
+# prevent OpenBLAS from spawning excessive threads across multiprocessing workers
+export OPENBLAS_NUM_THREADS=1
+
 # ########################################## MAKE DIRS
 
 for MODEL_ENTRY in "${MODELS[@]}"; do
