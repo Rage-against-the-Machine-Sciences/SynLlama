@@ -1,5 +1,5 @@
 import torch
-import json, pickle, argparse, os
+import json, pickle, argparse, os, random
 import multiprocessing as mp
 from synllama.llm.vars import *
 from tqdm import tqdm
@@ -69,9 +69,13 @@ def process_batch(args):
     
     return results
 
-def main(model_path, smiles_path, save_path, sampling_params, gpus = None):
+def main(model_path, smiles_path, save_path, sampling_params, gpus=None, n_samples=None, seed=42):
     with open(smiles_path, "r") as f:
         smiles_list = [line.strip() for line in f]
+
+    if n_samples is not None and n_samples < len(smiles_list):
+        random.seed(seed)
+        smiles_list = random.sample(smiles_list, n_samples)
     
     num_gpus = torch.cuda.device_count() if gpus is None else gpus
     print(f"Number of available GPUs: {num_gpus}")
@@ -114,6 +118,8 @@ if __name__ == "__main__":
     parser.add_argument("--top_p", type=float, default=None, help="Top-p for the model")
     parser.add_argument("--repeat", type=int, default=None, help="Number of times to repeat the model")
     parser.add_argument("--gpus", type=int, default=None, help="name of the cuda device to use, default is all available GPUs")
+    parser.add_argument("--n_samples", type=int, default=None, help="Randomly sample N molecules from the SMILES file")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for molecule sampling")
     args = parser.parse_args()
     mp.set_start_method('spawn', force=True)
     if args.save_path is None:
@@ -137,4 +143,4 @@ if __name__ == "__main__":
         assert args.sample_mode in sample_mode_mapping, f"Invalid sample mode: {args.sample_mode}"
         sampling_params = sample_mode_mapping[args.sample_mode]
 
-    main(args.model_path, args.smiles_path, args.save_path, sampling_params=sampling_params, gpus=args.gpus)
+    main(args.model_path, args.smiles_path, args.save_path, sampling_params=sampling_params, gpus=args.gpus, n_samples=args.n_samples, seed=args.seed)

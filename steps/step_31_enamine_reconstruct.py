@@ -40,7 +40,8 @@ def analyze_results(result_file_path, total_num_mols, top_n_rows = 1):
     for df in results:
         # Calculate average maximum similarity
         max_similarity.append(df['score'].max())
-        max_row = df.loc[[df['score'].idxmax()]] if top_n_rows == 1 else df.drop_duplicates(subset=['smiles']).nlargest(top_n_rows, 'score')
+        best_row = df.loc[[df['score'].idxmax()]]
+        max_row = best_row if top_n_rows == 1 else df.drop_duplicates(subset=['smiles']).nlargest(top_n_rows, 'score')
         # remove response_num column
         if 'response_num' in max_row.columns: max_row = max_row.drop(columns=['response_num'])
         max_rows_df = pd.concat([max_rows_df, max_row])
@@ -49,16 +50,16 @@ def analyze_results(result_file_path, total_num_mols, top_n_rows = 1):
         # Calculate reconstruction rate (where similarity == 1)
         reconstruction_rate_within_group.append((df['score'] == 1).mean())
         total_reconstruction_rate.append(any(df['score'] == 1))
-        scf_sim_all.append(max_row['scf_sim'].values[0] if not max_row['scf_sim'].isna().any() else np.nan)
-        pharm2d_sim_all.append(max_row['pharm2d_sim'].values[0] if not max_row['pharm2d_sim'].isna().any() else np.nan)
-        rdkit_sim_all.append(max_row['rdkit_sim'].values[0] if not max_row['rdkit_sim'].isna().any() else np.nan)
-        synthesis_steps = max_row['num_steps'].values[0]
+        scf_sim_all.append(best_row['scf_sim'].values[0] if not best_row['scf_sim'].isna().all() else np.nan)
+        pharm2d_sim_all.append(best_row['pharm2d_sim'].values[0] if not best_row['pharm2d_sim'].isna().all() else np.nan)
+        rdkit_sim_all.append(best_row['rdkit_sim'].values[0] if not best_row['rdkit_sim'].isna().all() else np.nan)
+        synthesis_steps = best_row['num_steps'].values[0]
         average_number_of_steps.append(synthesis_steps)
         if df['score'].max() < 1:
             morgan_no_reconstruction.append(df['score'].max())
-            scf_sim_no_reconstruction.append(max_row['scf_sim'].values[0] if not max_row['scf_sim'].isna().any() else np.nan)
-            pharm2d_sim_no_reconstruction.append(max_row['pharm2d_sim'].values[0] if not max_row['pharm2d_sim'].isna().any() else np.nan)
-            rdkit_sim_no_reconstruction.append(max_row['rdkit_sim'].values[0] if not max_row['rdkit_sim'].isna().any() else np.nan)
+            scf_sim_no_reconstruction.append(best_row['scf_sim'].values[0] if not best_row['scf_sim'].isna().all() else np.nan)
+            pharm2d_sim_no_reconstruction.append(best_row['pharm2d_sim'].values[0] if not best_row['pharm2d_sim'].isna().all() else np.nan)
+            rdkit_sim_no_reconstruction.append(best_row['rdkit_sim'].values[0] if not best_row['rdkit_sim'].isna().all() else np.nan)
     result_file_folder = os.path.dirname(result_file_path)
     max_rows_df.to_csv(os.path.join(result_file_folder, f"{file_name}_enamine_reconstruct.csv"), index=False)
     

@@ -24,19 +24,21 @@ def combine_stats(enamine_reconstruct_csv, total_num_mols, llama_folder=None):
     # combined_df = pd.concat([synllama_all_reconstruct_df, enamine_reconstruct_filtered], ignore_index=True)
 
     # no_recon_combined_df = combined_df[combined_df['score'] < 1]
-    no_recon_combined_df = enamine_reconstruct_df[enamine_reconstruct_df['score'] < 1]
+    # Take the best pathway per target so scalar means are not skewed by multiple rows per molecule
+    best_per_target = enamine_reconstruct_df.loc[enamine_reconstruct_df.groupby('target')['score'].idxmax()]
+    no_recon_combined_df = best_per_target[best_per_target['score'] < 1]
 
     combined_stats = {
         "file_name": enamine_reconstruct_csv[:-4].split("/")[-1].split("_enamine_reconstruct")[0],
-        "total_failure_rate %": round((1 - (len(enamine_reconstruct_df) - np.sum(enamine_reconstruct_df['score'].isna())) / total_num_mols) * 100, 2),
+        "total_failure_rate %": round((1 - (len(best_per_target) - np.sum(best_per_target['score'].isna())) / total_num_mols) * 100, 2),
         "total_enamine_reconstruct_rate %": round((enamine_reconstruct_mol / total_num_mols) * 100, 2),
         # "total_non_enamine_reconstruct_rate %": round((non_enamine_reconstruct_mol / total_num_mols) * 100, 2),
         "total_non_enamine_reconstruct_rate %": "N/A (stage 2 skipped)",
-        "total_all_reconstruction_rate %": round((np.sum(enamine_reconstruct_df['score'] == 1) / total_num_mols) * 100, 2),
-        "morgan_sim": enamine_reconstruct_df['score'].mean(),
-        "scf_sim": enamine_reconstruct_df['scf_sim'].mean(),
-        "pharm2d_sim": enamine_reconstruct_df['pharm2d_sim'].mean(),
-        "avg_rxn_steps": enamine_reconstruct_df['num_steps'].mean(),
+        "total_all_reconstruction_rate %": round((np.sum(enamine_reconstruct_df.groupby('target')['score'].max() == 1) / total_num_mols) * 100, 2),
+        "morgan_sim": best_per_target['score'].mean(),
+        "scf_sim": best_per_target['scf_sim'].mean(),
+        "pharm2d_sim": best_per_target['pharm2d_sim'].mean(),
+        "avg_rxn_steps": best_per_target['num_steps'].mean(),
         "morgan_sim_no_recon": no_recon_combined_df['score'].mean(),
         "scf_sim_no_recon": no_recon_combined_df['scf_sim'].mean(),
         "pharm2d_sim_no_recon": no_recon_combined_df['pharm2d_sim'].mean(),
