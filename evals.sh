@@ -1,10 +1,11 @@
 # Test sets:
-### 1K ChEMBL: ../synllama-data/inference/smiles/syn-planning/1k_chembl.smi
-### Enamine Testset from SynFormer ../synllama-data/inference/smiles/syn-planning/1k_enamine_synformer.smi
-### Unseen Test set from 115 RXNs ../synllama-data/inference/smiles/syn-planning/1k_test_unseen_bbs_115rxns.smi
-### Unseen Test set from 91 RXNs ../synllama-data/inference/smiles/syn-planning/1k_test_unseen_bbs_91rxns.smi
-### Train-distribution subset from 115 RXNs ../synllama-data/inference/smiles/syn-planning/1k_train_115rxns.smi
-### Train-distribution subset from 91 RXNs ../synllama-data/inference/smiles/syn-planning/1k_train_91rxns.smi
+### 1K ChEMBL: ../evals/synllama/test_sets/1k_chembl.smi
+### Enamine Testset from SynFormer ../evals/synllama/test_sets/1k_enamine_synformer.smi
+### Zinc250k Testset (1k samples) from ReaSyn ../evals/synllama/test_sets/1k_zinc250k.smi
+### Unseen Test set from 115 RXNs ../evals/synllama/test_sets/1k_test_unseen_bbs_115rxns.smi
+### Unseen Test set from 91 RXNs ../evals/synllama/test_sets/1k_test_unseen_bbs_91rxns.smi
+### Train-distribution subset from 115 RXNs ../evals/synllama/test_sets/1k_train_115rxns.smi
+### Train-distribution subset from 91 RXNs ../evals/synllama/test_sets/1k_train_91rxns.smi
 
 # Models:
 # SynLlama-1B-2M-91rxns: The trained model for SynLlama-1B-2M using RXN Set 1.
@@ -13,6 +14,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="${SCRIPT_DIR}/../synllama-data"
+OUT_DIR="{SCRIPT_DIR}/../evals/synllama"
 
 # ########################################## CLI ARGS
 
@@ -51,15 +53,16 @@ MODELS=(
 TEST_SETS=(
     "1k_chembl.smi:1k_chembl"
     "1k_enamine_synformer.smi:1k_enamine_synformer"
-    "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
-    "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
+    "1k_zinc250k.smi:1k_zinc250k"
+    # "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
+    # "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
     # "1k_train_115rxns.smi:1k_train_115rxns"
     # "1k_train_91rxns.smi:1k_train_91rxns"
 )
 
-SMILES_DIR="${DATA_DIR}/inference/smiles/syn-planning"
+SMILES_DIR="${OUT_DIR}/test_sets"
 MODEL_DIR="${DATA_DIR}/inference/model"
-RESULTS_DIR="${DATA_DIR}/results/${SAMPLE_MODE}"
+RESULTS_DIR="${OUT_DIR}/results/${SAMPLE_MODE}"
 RECON_BASE="${DATA_DIR}/inference/reconstruction"
 
 # cd once so that python -m module paths resolve correctly
