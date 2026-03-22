@@ -14,9 +14,34 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="${SCRIPT_DIR}/../synllama-data"
 
+# ########################################## CLI ARGS
+
+usage() {
+    echo "Usage: $0 [--n_samples N] [--sample_mode MODE] [--seed S]"
+    echo ""
+    echo "Options:"
+    echo "  --n_samples    Number of samples (default: 200)"
+    echo "  --sample_mode  Sampling mode (default: high_only)"
+    echo "  --seed         Random seed (default: 42)"
+    exit 1
+}
+
 N_SAMPLES=200
 SAMPLE_MODE=high_only
 SEED=42
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --n_samples)   N_SAMPLES="$2";  shift 2 ;;
+        --sample_mode) SAMPLE_MODE="$2"; shift 2 ;;
+        --seed)        SEED="$2";       shift 2 ;;
+        -h|--help)     usage ;;
+        *) echo "Unknown argument: $1"; usage ;;
+    esac
+done
+
+echo "Running evals with N_SAMPLES=${N_SAMPLES}, SAMPLE_MODE=${SAMPLE_MODE}, SEED=${SEED}"
+
 
 MODELS=(
     "SynLlama-1B-2M-91rxns:91rxns"
