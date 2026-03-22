@@ -14,7 +14,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="${SCRIPT_DIR}/../synllama-data"
-OUT_DIR="{SCRIPT_DIR}/../evals/synllama"
+OUT_DIR="${SCRIPT_DIR}/../evals/synllama"
 
 # ########################################## CLI ARGS
 
@@ -53,7 +53,7 @@ MODELS=(
 TEST_SETS=(
     "1k_chembl.smi:1k_chembl"
     "1k_enamine_synformer.smi:1k_enamine_synformer"
-    "1k_zinc250k.smi:1k_zinc250k"
+    # "1k_zinc250k.smi:1k_zinc250k"
     # "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
     # "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
     # "1k_train_115rxns.smi:1k_train_115rxns"
