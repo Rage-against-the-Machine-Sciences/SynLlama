@@ -29,7 +29,7 @@ usage() {
 }
 
 N_SAMPLES=200
-SAMPLE_MODE=high_only
+SAMPLE_MODE=medium_only
 SEED=42
 
 while [[ $# -gt 0 ]]; do
@@ -47,11 +47,11 @@ echo "Running evals with N_SAMPLES=${N_SAMPLES}, SAMPLE_MODE=${SAMPLE_MODE}, SEE
 
 MODELS=(
     "SynLlama-1B-2M-91rxns:91rxns"
-    "SynLlama-1B-2M-115rxns:115rxns"
+    # "SynLlama-1B-2M-115rxns:115rxns"
 )
 
 TEST_SETS=(
-    "1k_chembl.smi:1k_chembl"
+    # "1k_chembl.smi:1k_chembl"
     "1k_enamine_synformer.smi:1k_enamine_synformer"
     # "1k_zinc250k.smi:1k_zinc250k"
     # "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
@@ -60,9 +60,9 @@ TEST_SETS=(
     # "1k_train_91rxns.smi:1k_train_91rxns"
 )
 
-SMILES_DIR="${OUT_DIR}/test_sets"
+SMILES_DIR="${DATA_DIR}/inference/smiles/syn-planning"
 MODEL_DIR="${DATA_DIR}/inference/model"
-RESULTS_DIR="${OUT_DIR}/results/${SAMPLE_MODE}"
+RESULTS_DIR="${OUT_DIR}/results/sequential_${SAMPLE_MODE}"
 RECON_BASE="${DATA_DIR}/inference/reconstruction"
 
 # cd once so that python -m module paths resolve correctly
@@ -107,6 +107,7 @@ for MODEL_ENTRY in "${MODELS[@]}"; do
             --sample_mode "${SAMPLE_MODE}" \
             --n_samples "${N_SAMPLES}" \
             --seed "${SEED}" \
+            --sequential \
             > >(tee "${LOGS}/parallel_inference.log") \
             2> >(tee "${LOGS}/parallel_inference_err.log" >&2)
 
