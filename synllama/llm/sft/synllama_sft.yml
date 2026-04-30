@@ -1,4 +1,4 @@
-base_model: meta-llama/Llama-3.2-1B-Instruct
+base_model: /home/varun-edachali/IIIT/SEM8/Maching Learning for Natural Sciences/projects/final/synllama-data/inference/model/SynLlama-1B-2M-115rxns
 model_type: LlamaForCausalLM
 tokenizer_type: AutoTokenizer
 is_llama_derived_model: true
@@ -8,33 +8,28 @@ load_in_4bit: false
 strict: false
 
 datasets:
-  - path: CHANGE_TO_YOUR_DATASET_PATH (prepared dataset path in jsonl format)
+  - path: /home/varun-edachali/IIIT/SEM8/Maching Learning for Natural Sciences/projects/final/ft_data/synllama_ft_diversity.jsonl
     ds_type: json
-    type: alpaca
-dataset_prepared_path: CHANGE_TO_YOUR_DATASET_PATH (file path to save the prepared dataset)
+    type: input_output
+dataset_prepared_path: /home/varun-edachali/IIIT/SEM8/Maching Learning for Natural Sciences/projects/final/ft_data/prepared
 val_set_size: 0.05
-output_dir: CHANGE_TO_YOUR_OUTPUT_PATH (file path to save the outputs)
+output_dir: /home/varun-edachali/IIIT/SEM8/Maching Learning for Natural Sciences/projects/final/ft_data/output_synllama_r4_qv
 
 sequence_len: 2048
 sample_packing: true
 eval_sample_packing: true
 pad_to_sequence_len: true
 
-overrides_of_model_config:
-  rope_scaling:
-      factor: 1.0
-      low_freq_factor: 1.0
-      high_freq_factor: 4.0
-      original_max_position_embeddings: 8192
-      rope_type: llama3
-
 adapter: lora
 lora_model_dir:
-lora_r: 32
-lora_alpha: 16
+lora_r: 4
+lora_alpha: 8
 lora_dropout: 0.05
-lora_target_linear: true
+lora_target_linear: false
 lora_fan_in_fan_out:
+lora_target_modules:
+  - q_proj
+  - v_proj
 
 wandb_mode:
 wandb_project:
@@ -44,12 +39,12 @@ wandb_watch:
 wandb_log_model:
 wandb_name:
 
-gradient_accumulation_steps: 4
-micro_batch_size: 4
+gradient_accumulation_steps: 8
+micro_batch_size: 2
 num_epochs: 1
 optimizer: adamw_bnb_8bit
 lr_scheduler: cosine
-learning_rate: 0.0002
+learning_rate: 0.00005
 
 train_on_inputs: false
 group_by_length: false
@@ -73,8 +68,8 @@ eval_table_max_new_tokens: 128
 saves_per_epoch: 1
 debug:
 deepspeed:
-weight_decay: 0.0
+weight_decay: 0.01
 fsdp:
 fsdp_config:
 special_tokens:
-    pad_token: <|finetune_right_pad_id|>
+  pad_token: <|finetune_right_pad_id|>
