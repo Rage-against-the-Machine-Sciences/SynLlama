@@ -1,0 +1,76 @@
+base_model: /workspace/synllama-data/inference/model/SynLlama-1B-2M-115rxns
+model_type: LlamaForCausalLM
+tokenizer_type: AutoTokenizer
+is_llama_derived_model: true
+
+load_in_8bit: true
+load_in_4bit: false
+strict: false
+
+datasets:
+  - path: /workspace/evals/synllama/ft_data/10k_synft.jsonl
+    ds_type: json
+    type: input_output
+dataset_prepared_path: /workspace/evals/synllama/ft_data/10k_prepared
+val_set_size: 0.05
+output_dir: /workspace/evals/synllama/models/10k_output_synllama_r4_kqv
+
+sequence_len: 2048
+sample_packing: true
+eval_sample_packing: true
+pad_to_sequence_len: true
+
+adapter: lora
+lora_model_dir:
+lora_r: 4
+lora_alpha: 8
+lora_dropout: 0.05
+lora_target_linear: false
+lora_fan_in_fan_out:
+lora_target_modules:
+  - k_proj
+  - q_proj
+  - v_proj
+
+wandb_mode:
+wandb_project:
+wandb_entity:
+wandb_run_id:
+wandb_watch:
+wandb_log_model:
+wandb_name:
+
+gradient_accumulation_steps: 8
+micro_batch_size: 2
+num_epochs: 1
+optimizer: adamw_bnb_8bit
+lr_scheduler: cosine
+learning_rate: 0.00005
+
+train_on_inputs: false
+group_by_length: false
+bf16: auto
+fp16:
+tf32: false
+
+gradient_checkpointing: true
+early_stopping_patience:
+resume_from_checkpoint:
+local_rank:
+logging_steps: 1
+xformers_attention:
+flash_attention: true
+s2_attention:
+
+warmup_steps: 10
+evals_per_epoch: 4
+eval_table_size:
+eval_table_max_new_tokens: 128
+saves_per_epoch: 1
+debug:
+deepspeed:
+weight_decay: 0.01
+fsdp:
+fsdp_config:
+special_tokens:
+  pad_token: <|finetune_right_pad_id|>
