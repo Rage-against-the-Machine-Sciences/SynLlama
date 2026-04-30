@@ -46,13 +46,13 @@ echo "Running evals with N_SAMPLES=${N_SAMPLES}, SAMPLE_MODE=${SAMPLE_MODE}, SEE
 
 
 MODELS=(
-    "SynLlama-1B-2M-91rxns:91rxns"
-    # "SynLlama-1B-2M-115rxns:115rxns"
+    # "SynLlama-1B-2M-91rxns:91rxns"
+    "SynLlama-1B-2M-115rxns:115rxns"
 )
 
 TEST_SETS=(
-    # "1k_chembl.smi:1k_chembl"
     "1k_enamine_synformer.smi:1k_enamine_synformer"
+    # "1k_chembl.smi:1k_chembl"
     # "1k_zinc250k.smi:1k_zinc250k"
     # "1k_test_unseen_bbs_115rxns.smi:1k_test_unseen_bbs_115rxns"
     # "1k_test_unseen_bbs_91rxns.smi:1k_test_unseen_bbs_91rxns"
@@ -111,12 +111,20 @@ for MODEL_ENTRY in "${MODELS[@]}"; do
             > >(tee "${LOGS}/parallel_inference.log") \
             2> >(tee "${LOGS}/parallel_inference_err.log" >&2)
 
+        python -m steps.step_30_0_benchmark_filter_raw_output \
+            --llama_folder "${RUN_DIR}" \
+            --rxn_mapping_path "${RECON_BASE}/${MODEL_TAG}/rxn_embeddings/reaction_smarts_map.pkl" \
+            --fp_searcher_path "${RECON_BASE}/${MODEL_TAG}/processed/fpindex.pkl" \
+            --benchmark_only \
+            > >(tee "${LOGS}/step_30_benchmark.log") \
+            2> >(tee "${LOGS}/step_30_benchmark_err.log" >&2)
+
         python -m steps.step_31_enamine_reconstruct \
             --llama_folder "${RUN_DIR}" \
             --embedding_path "${RECON_BASE}/${MODEL_TAG}/rxn_embeddings/" \
             --total_num_mols "${N_SAMPLES}" \
-            --k 10 \
-            --n_stacks 50 \
+            --k 5 \
+            --n_stacks 25 \
             --top_n_rows 50 \
             > >(tee "${LOGS}/step_31_enamine_reconstruct.log") \
             2> >(tee "${LOGS}/step_31_enamine_reconstruct_err.log" >&2)
